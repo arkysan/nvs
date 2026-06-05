@@ -1,4 +1,5 @@
-import { QuoteForm } from "@/components/forms/QuoteForm";
+import { Suspense } from "react";
+import { QuotePageForm } from "@/components/forms/QuotePageForm";
 import { SectionTitle } from "@/components/site/SectionTitle";
 
 export const metadata = {
@@ -12,7 +13,9 @@ export default function QuotePage() {
         <SectionTitle title="Request a Quote">
           Collect buyer details, preview FOB to CIF, then send a structured WhatsApp request. WeChat and phone remain visible for China-safe fallback.
         </SectionTitle>
-        <QuoteForm />
+        <Suspense fallback={<div className="form-card">Loading quote form...</div>}>
+          <QuotePageForm />
+        </Suspense>
       </div>
     </section>
   );
