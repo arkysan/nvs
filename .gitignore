@@ -10,3 +10,5 @@ npm-debug.log*
 coverage/
 tmp/
 logs/
+
+.vercel
