@@ -24,13 +24,13 @@ export function Header() {
   const whatsApp = `https://wa.me/${siteConfig.contact.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent("Hi New Vision, I want current stock and export pricing.")}`;
 
   return (
-    <header className="topbar">
+    <header className="topbar" data-section="site-header" data-section-label="Site header">
       <nav className="nav" aria-label="Main navigation">
         <Link className="brand" href="/">
           <img src="/logo-mark.png" alt="New Vision" />
           <span>
-            {siteConfig.productName}
-            <span>Static-first export platform</span>
+            <strong data-field="title">{siteConfig.productName}</strong>
+            <span data-field="copy">Static-first export platform</span>
           </span>
         </Link>
         <div className="nav-links">

@@ -16,6 +16,7 @@ export default function AdminPage() {
     ["Suppliers", suppliers.length, "/admin/suppliers", "Supplier verification tiers and checklist state."],
     ["Inquiries", sampleInquiries.length, "/admin/inquiries", "Static sample quote records until backend ships."],
     ["Dealers", dealerApplications.length, "/admin/dealers", "Dealer application queue for Year 1 markets."],
+    ["Review", "Local", "/admin/review", "Local-only visual notes, content preview, vehicle draft notes, and handoff export."],
   ] as const;
 
   return (

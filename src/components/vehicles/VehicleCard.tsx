@@ -6,13 +6,13 @@ export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
   const cifPreview = vehicle.fobPriceUsd + 1030;
 
   return (
-    <article className="vehicle-card">
+    <article className="vehicle-card" data-section={`vehicle-${vehicle.slug}`} data-section-label={`${vehicle.brand} ${vehicle.model}`}>
       <div className="vehicle-photo">
         <img src={vehicle.image} alt={`${vehicle.year} ${vehicle.brand} ${vehicle.model}`} />
       </div>
       <div className="vehicle-body">
-        <div className="vehicle-brand">{vehicle.brand}</div>
-        <div className="vehicle-name">{vehicle.year} {vehicle.model}</div>
+        <div className="vehicle-brand" data-field="label">{vehicle.brand}</div>
+        <div className="vehicle-name" data-field="title">{vehicle.year} {vehicle.model}</div>
         <div className="vehicle-meta">
           <span className="chip">{vehicle.stockId}</span>
           <span className="chip">{vehicle.condition === "new" ? "Brand new" : "Verified used"}</span>

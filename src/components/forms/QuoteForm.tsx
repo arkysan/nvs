@@ -77,7 +77,7 @@ export function QuoteForm({ selectedVehicleSlug }: { selectedVehicleSlug?: strin
   }
 
   return (
-    <div className="quote-layout">
+    <div className="quote-layout" data-section="quote-form" data-section-label="Quote form">
       <form className="form-card" onSubmit={(event) => event.preventDefault()}>
         <div className="form-grid">
           <label>Name *<input required value={form.name} onChange={(event) => update("name", event.target.value)} placeholder="John Smith" /></label>
@@ -120,8 +120,8 @@ export function QuoteForm({ selectedVehicleSlug }: { selectedVehicleSlug?: strin
         </div>
       </form>
       <aside className="form-card quote-preview" id="quotePreview">
-        <h2>Export quote preview</h2>
-        <p>Estimate until sales confirms live freight, documents, and final CIF.</p>
+        <h2 data-field="title">Export quote preview</h2>
+        <p data-field="copy">Estimate until sales confirms live freight, documents, and final CIF.</p>
         <div className="preview-line"><span>FOB</span><b>{money(fob)}</b></div>
         <div className="preview-line"><span>Freight est.</span><b>{money(freight)}</b></div>
         <div className="preview-line"><span>Inspection/docs</span><b>{money(inspection)}</b></div>

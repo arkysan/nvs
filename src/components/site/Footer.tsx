@@ -4,11 +4,11 @@ import { siteConfig } from "@/lib/site";
 
 export function Footer() {
   return (
-    <footer className="footer">
+    <footer className="footer" data-section="site-footer" data-section-label="Site footer">
       <div className="container footer-grid">
         <div>
-          <h3>{siteConfig.legalName}</h3>
-          <p>Verified vehicle sourcing, dealer recruitment, export documentation, inspection, and door-to-port logistics from Yiwu.</p>
+          <h3 data-field="title">{siteConfig.legalName}</h3>
+          <p data-field="copy">Verified vehicle sourcing, dealer recruitment, export documentation, inspection, and door-to-port logistics from Yiwu.</p>
           <p>
             Tel {siteConfig.contact.phone} <br />
             WA / WeChat {siteConfig.contact.wechat} <br />

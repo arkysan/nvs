@@ -18,10 +18,10 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="container hero" id="top">
+      <section className="container hero" id="top" data-section="home-hero" data-section-label="Home hero">
         <div>
-          <h1>New Vision OS for verified China vehicle export.</h1>
-          <p>
+          <h1 data-field="title">New Vision OS for verified China vehicle export.</h1>
+          <p data-field="copy">
             A static-first platform for New Vision buyers, dealers, suppliers, quotes, and Year 1 market growth.
             Built to work globally and stay useful in China-safe mode without depending on Google, Supabase, or live APIs.
           </p>
@@ -34,26 +34,26 @@ export default function HomePage() {
         <div className="hero-panel">
           <img src="/showroom-900.webp" alt="New Vision showroom and export office" />
           <div className="hero-panel-copy">
-            <b>Yiwu New Vision Car Export Company</b>
-            <p>Green and smart travel focus since 2019. Full-chain export support from China to dealer markets.</p>
+            <b data-field="label">Yiwu New Vision Car Export Company</b>
+            <p data-field="cta">Green and smart travel focus since 2019. Full-chain export support from China to dealer markets.</p>
           </div>
         </div>
       </section>
 
-      <section className="section compact">
+      <section className="section compact" data-section="home-stats" data-section-label="Home stats">
         <div className="container stat-grid">
           {stats.map(([value, label]) => (
-            <div className="stat-card" key={label}>
-              <b>{value}</b>
-              <span>{label}</span>
+            <div className="stat-card" key={label} data-section={`stat-${value.toLowerCase().replace(/\W+/g, "-")}`} data-section-label={`${value} stat`}>
+              <b data-field="title">{value}</b>
+              <span data-field="copy">{label}</span>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="section" id="inventory">
+      <section className="section" id="inventory" data-section="home-inventory" data-section-label="Home inventory">
         <div className="container">
-          <SectionTitle title="Verified Inventory">
+          <SectionTitle title="Verified Inventory" titleField="title" copyField="copy">
             Public cards come from structured data and exclude pending, sold, hidden, and tier 3 internal supplier vehicles.
           </SectionTitle>
           <div className="vehicle-grid">
@@ -65,26 +65,26 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section compact">
+      <section className="section compact" data-section="home-markets" data-section-label="Home markets">
         <div className="container">
-          <SectionTitle title="Year 1 Market Focus">
+          <SectionTitle title="Year 1 Market Focus" titleField="title" copyField="copy">
             NEV first in Ethiopia, Egypt, and Nigeria. ICE first in Algeria and Guinea.
           </SectionTitle>
           <div className="market-grid">
             {markets.map((market) => (
-              <Link className="card" href={`/markets/${market.slug}`} key={market.slug}>
-                <h3>{market.name}</h3>
-                <p>{market.region}</p>
-                <span className="chip">{market.focus}</span>
+              <Link className="card" href={`/markets/${market.slug}`} key={market.slug} data-section={`market-${market.slug}`} data-section-label={`${market.name} market card`}>
+                <h3 data-field="title">{market.name}</h3>
+                <p data-field="copy">{market.region}</p>
+                <span className="chip" data-field="label">{market.focus}</span>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section">
+      <section className="section" data-section="home-operating-system" data-section-label="Operating system">
         <div className="container">
-          <SectionTitle title="Export Operating System">
+          <SectionTitle title="Export Operating System" titleField="title" copyField="copy">
             One codebase, two deployment paths, static public website first, database and automation later.
           </SectionTitle>
           <div className="card-grid">
@@ -102,18 +102,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section" id="quote">
+      <section className="section" id="quote" data-section="home-quote" data-section-label="Home quote CTA">
         <div className="container">
-          <SectionTitle title="Request a Quote">
+          <SectionTitle title="Request a Quote" titleField="title" copyField="copy">
             Generate a buyer-ready WhatsApp message now. Save-to-database can be added later without changing the public flow.
           </SectionTitle>
           <QuoteForm />
         </div>
       </section>
 
-      <section className="section compact">
+      <section className="section compact" data-section="home-dealer" data-section-label="Home dealer application">
         <div className="container">
-          <SectionTitle title="Dealer Application">
+          <SectionTitle title="Dealer Application" titleField="title" copyField="copy">
             Start recruiting serious regional dealers while the full portal stays in a later phase.
           </SectionTitle>
           <DealerApplicationForm />
