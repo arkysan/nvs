@@ -1,0 +1,29 @@
+{
+  "name": "nvs-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "New Vision OS static-first vehicle export platform.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "check:data": "node scripts/check-public-inventory.mjs",
+    "test": "npm run check:data && npm run build"
+  },
+  "dependencies": {
+    "next": "^16.2.7",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.5",
+    "@eslint/js": "^9.39.4",
+    "@types/node": "25.9.1",
+    "@types/react": "19.2.16",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^16.2.7",
+    "typescript": "6.0.3",
+    "typescript-eslint": "^8.60.1"
+  }
+}
