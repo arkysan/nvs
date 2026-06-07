@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { usePrivacyMode } from "@/components/privacy/usePrivacyMode";
 import { publicVehicles } from "@/lib/inventory";
 import { money } from "@/lib/format";
 import { siteConfig } from "@/lib/site";
@@ -39,6 +40,8 @@ const initial: QuoteState = {
 
 export function QuoteForm({ selectedVehicleSlug }: { selectedVehicleSlug?: string }) {
   const [form, setForm] = useState<QuoteState>({ ...initial, vehicleInterest: selectedVehicleSlug ?? initial.vehicleInterest });
+  const [copyStatus, setCopyStatus] = useState("");
+  const { privacyMode, privacyModeReady } = usePrivacyMode();
   const selectedVehicle = publicVehicles.find((vehicle) => vehicle.slug === form.vehicleInterest);
   const freight = selectedVehicle ? 1030 + Math.max(0, form.quantity - 1) * 680 : 0;
   const inspection = form.inspectionRequired ? 280 : 0;
@@ -74,6 +77,15 @@ export function QuoteForm({ selectedVehicleSlug }: { selectedVehicleSlug?: strin
 
   function update<K extends keyof QuoteState>(key: K, value: QuoteState[K]) {
     setForm((current) => ({ ...current, [key]: value }));
+  }
+
+  async function copyQuoteMessage() {
+    try {
+      await navigator.clipboard.writeText(message);
+      setCopyStatus("Quote message copied locally. Paste it manually only when you are ready to share.");
+    } catch {
+      setCopyStatus("Copy failed. Browser clipboard permission blocked it.");
+    }
   }
 
   return (
@@ -115,9 +127,17 @@ export function QuoteForm({ selectedVehicleSlug }: { selectedVehicleSlug?: strin
           <label className="wide">Message / Requirements<textarea rows={4} value={form.message} onChange={(event) => update("message", event.target.value)} placeholder="Trim, color, quantity, docs, inspection, delivery requirements..." /></label>
         </div>
         <div className="row-actions" style={{ marginTop: 14 }}>
-          <a className="button primary" href={waUrl} target="_blank" rel="noreferrer">Send via WhatsApp</a>
+          {!privacyModeReady ? (
+            <button className="button ghost" type="button" disabled>Checking privacy</button>
+          ) : privacyMode ? (
+            <button className="button primary" type="button" onClick={copyQuoteMessage}>Copy locally</button>
+          ) : (
+            <a className="button primary" href={waUrl} target="_blank" rel="noreferrer">Send via WhatsApp</a>
+          )}
           <a className="button ghost" href="/contact">Use WeChat / Phone</a>
         </div>
+        {privacyMode ? <p className="notice privacy-inline">Privacy Mode is on. This form is not opening WhatsApp automatically; it only prepares local copy text.</p> : null}
+        {copyStatus ? <p className="review-status">{copyStatus}</p> : null}
       </form>
       <aside className="form-card quote-preview" id="quotePreview">
         <h2 data-field="title">Export quote preview</h2>

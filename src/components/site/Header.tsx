@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePrivacyMode } from "@/components/privacy/usePrivacyMode";
 import { featureFlags, siteConfig } from "@/lib/site";
 
 const nav = [
@@ -11,6 +12,7 @@ const nav = [
   ["Services", "/services"],
   ["Shipping", "/shipping"],
   ["Quote", "/quote"],
+  ["Privacy", "/privacy-mode"],
   ["Admin", "/admin"],
 ];
 
@@ -20,6 +22,7 @@ const markets = ["GL Market", "Ethiopia", "Egypt", "Nigeria", "Algeria", "Guinea
 export function Header() {
   const [language, setLanguage] = useState("EN");
   const [market, setMarket] = useState(markets[0]);
+  const { privacyMode, privacyModeReady } = usePrivacyMode();
 
   const whatsApp = `https://wa.me/${siteConfig.contact.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent("Hi New Vision, I want current stock and export pricing.")}`;
 
@@ -53,7 +56,8 @@ export function Header() {
               </button>
             ))}
           </div>
-          {featureFlags.useWhatsApp ? (
+          {privacyMode ? <Link className="button ghost privacy-nav-badge" href="/privacy-mode">Privacy On</Link> : null}
+          {featureFlags.useWhatsApp && privacyModeReady && !privacyMode ? (
             <a className="button primary" href={whatsApp} target="_blank" rel="noreferrer">
               WhatsApp
             </a>

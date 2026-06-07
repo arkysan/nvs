@@ -518,6 +518,87 @@ textarea {
   padding: 14px 16px;
 }
 
+.privacy-nav-badge {
+  border-color: rgba(179, 38, 30, 0.24);
+  color: var(--nv-danger);
+}
+
+.privacy-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.9fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.privacy-console,
+.privacy-list {
+  border: 1px solid var(--nv-border);
+  border-radius: 8px;
+  background: var(--nv-card);
+  padding: 18px;
+}
+
+.privacy-console {
+  grid-row: span 2;
+  background: var(--nv-white);
+}
+
+.privacy-console h2,
+.privacy-list h3 {
+  margin: 10px 0 8px;
+  color: var(--nv-deep);
+}
+
+.privacy-status-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.privacy-badge {
+  border: 1px solid var(--nv-border);
+  border-radius: 999px;
+  background: var(--nv-card);
+  color: var(--nv-muted);
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.privacy-badge.on {
+  border-color: rgba(179, 38, 30, 0.24);
+  background: #fff7f6;
+  color: var(--nv-danger);
+}
+
+.privacy-warning,
+.privacy-inline {
+  margin: 14px 0;
+}
+
+.privacy-row {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 10px;
+  border-top: 1px solid var(--nv-border);
+  padding: 10px 0;
+}
+
+.privacy-row b {
+  color: var(--nv-secondary);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.privacy-row.risk b {
+  color: var(--nv-danger);
+}
+
+.privacy-row span {
+  color: var(--nv-muted);
+}
+
 .footer {
   border-top: 1px solid var(--nv-border);
   background: var(--nv-card);
@@ -706,8 +787,13 @@ textarea {
 
   .hero,
   .quote-layout,
+  .privacy-layout,
   .footer-grid {
     grid-template-columns: 1fr;
+  }
+
+  .privacy-console {
+    grid-row: auto;
   }
 
   .stat-grid,

@@ -20,6 +20,7 @@ export function Footer() {
           <Link href="/vehicles">Verified Inventory</Link>
           <Link href="/quote">Quote Request</Link>
           <Link href="/dealer-program">Dealer Program</Link>
+          <Link href="/privacy-mode">Privacy Mode</Link>
           <Link href="/admin">Admin Lite</Link>
         </div>
         <div>

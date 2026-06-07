@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { usePrivacyMode } from "@/components/privacy/usePrivacyMode";
 import { siteConfig } from "@/lib/site";
 
 export function DealerApplicationForm() {
@@ -10,6 +11,8 @@ export function DealerApplicationForm() {
   const [volume, setVolume] = useState("5-10 units");
   const [coverage, setCoverage] = useState("");
   const [focus, setFocus] = useState("EV SUV, ICE SUV");
+  const [copyStatus, setCopyStatus] = useState("");
+  const { privacyMode, privacyModeReady } = usePrivacyMode();
 
   const message = useMemo(() => {
     return [
@@ -29,6 +32,15 @@ export function DealerApplicationForm() {
 
   const waUrl = `https://wa.me/${siteConfig.contact.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(message)}`;
 
+  async function copyApplicationMessage() {
+    try {
+      await navigator.clipboard.writeText(message);
+      setCopyStatus("Dealer application copied locally. Paste it manually only when you are ready to share.");
+    } catch {
+      setCopyStatus("Copy failed. Browser clipboard permission blocked it.");
+    }
+  }
+
   return (
     <form className="form-card" onSubmit={(event) => event.preventDefault()}>
       <div className="form-grid">
@@ -40,8 +52,16 @@ export function DealerApplicationForm() {
         <label className="wide">Vehicle Focus<input value={focus} onChange={(event) => setFocus(event.target.value)} placeholder="EV SUV, ICE sedan, pickup..." /></label>
       </div>
       <div className="row-actions" style={{ marginTop: 14 }}>
-        <a className="button primary" href={waUrl} target="_blank" rel="noreferrer">Send Dealer Application</a>
+        {!privacyModeReady ? (
+          <button className="button ghost" type="button" disabled>Checking privacy</button>
+        ) : privacyMode ? (
+          <button className="button primary" type="button" onClick={copyApplicationMessage}>Copy application locally</button>
+        ) : (
+          <a className="button primary" href={waUrl} target="_blank" rel="noreferrer">Send Dealer Application</a>
+        )}
       </div>
+      {privacyMode ? <p className="notice privacy-inline">Privacy Mode is on. This form is not opening WhatsApp automatically; it only prepares local copy text.</p> : null}
+      {copyStatus ? <p className="review-status">{copyStatus}</p> : null}
     </form>
   );
 }

@@ -20,6 +20,12 @@ const editorRoot = fs.readFileSync(editorRootPath, "utf8");
 const siteContent = fs.readFileSync(siteContentPath, "utf8");
 const homePage = fs.readFileSync(homePagePath, "utf8");
 const reviewPage = fs.readFileSync(reviewPagePath, "utf8");
+const vehicleRecords = vehicles.match(/\{\s*id: "veh-[\s\S]*?\n  \}/g) ?? [];
+const publicVehicleCount = vehicleRecords.filter((record) => (
+  record.includes('availability: "available"') &&
+  record.includes('verificationStatus: "verified"') &&
+  !record.includes('supplierTier: "tier_3_internal"')
+)).length;
 
 const requiredRule = [
   'vehicle.availability === "available"',
@@ -55,6 +61,18 @@ for (const snippet of ['data-section="home-hero"', 'data-section="home-inventory
   }
 }
 
+if (publicVehicleCount < 1) {
+  throw new Error("Public inventory guard expected at least one verified public vehicle.");
+}
+
+if (!homePage.includes("publicVehicles.length")) {
+  throw new Error("Homepage public inventory count must derive from publicVehicles.length.");
+}
+
+if (/\["\d[\d,]*\+?",\s*"Vehicles available/.test(homePage)) {
+  throw new Error("Homepage must not publish static oversized vehicle availability claims.");
+}
+
 for (const snippet of ["localStorage", "reviewStorageKeys", "buildReviewPacket", "WhatsApp handoff"]) {
   if (!editorRoot.includes(snippet)) {
     throw new Error(`Review mode must remain local/export oriented: ${snippet}`);
@@ -68,6 +86,7 @@ if (!siteContent.includes('mode: "local_review"') || !reviewPage.includes("does 
 console.log(JSON.stringify({
   ok: true,
   rule: "available + verified + not tier_3_internal",
+  publicVehicleCount,
   quoteHandoff: true,
   reviewMode: "localStorage-only",
 }));

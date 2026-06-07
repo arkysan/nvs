@@ -6,15 +6,15 @@ import { VehicleCard } from "@/components/vehicles/VehicleCard";
 import { markets } from "@/data/markets";
 import { publicVehicles } from "@/lib/inventory";
 
-const stats = [
-  ["3,200+", "Vehicles available through sourcing lanes"],
-  ["50+", "Countries served by the export network"],
-  ["5", "Year 1 priority markets"],
-  ["Verified", "Supplier-first public inventory rule"],
-];
-
 export default function HomePage() {
+  const publicInventoryCount = publicVehicles.length;
   const featured = publicVehicles.slice(0, 6);
+  const stats = [
+    [String(publicInventoryCount), "Public inventory records in structured data"],
+    [String(markets.length), "Year 1 priority markets in structured data"],
+    ["Verified", "Supplier-first public inventory rule"],
+    ["Static", "No live API or sourcing-lane estimate in V1"],
+  ];
 
   return (
     <>
@@ -53,14 +53,14 @@ export default function HomePage() {
 
       <section className="section" id="inventory" data-section="home-inventory" data-section-label="Home inventory">
         <div className="container">
-          <SectionTitle title="Verified Inventory" titleField="title" copyField="copy">
-            Public cards come from structured data and exclude pending, sold, hidden, and tier 3 internal supplier vehicles.
+          <SectionTitle title={`Verified Inventory (${publicInventoryCount})`} titleField="title" copyField="copy">
+            The count and cards come from the structured public inventory filter. Pending, sold, hidden, and tier 3 internal vehicles are excluded.
           </SectionTitle>
           <div className="vehicle-grid">
             {featured.map((vehicle) => <VehicleCard key={vehicle.id} vehicle={vehicle} />)}
           </div>
           <div className="row-actions" style={{ marginTop: 18, justifyContent: "center" }}>
-            <Link className="button primary" href="/vehicles">Open all inventory</Link>
+            <Link className="button primary" href="/vehicles">Open {publicInventoryCount} public records</Link>
           </div>
         </div>
       </section>

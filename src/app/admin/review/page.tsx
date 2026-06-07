@@ -13,7 +13,7 @@ export default function ReviewPage() {
           Local editor, annotations, vehicle draft notes, and handoff export. This page does not create production auth, APIs, CRM writes, or public inventory changes.
         </SectionTitle>
         <div className="notice" style={{ marginBottom: 18 }}>
-          Review Mode uses browser localStorage. Open the panel on this page or append <b>?review=1</b> to a public page to review marked sections.
+          Review Mode uses browser localStorage. Open the panel on this page or append <b>?review=1</b> to a public page to review marked sections. For sensitive review, turn on <Link href="/privacy-mode"><b>Privacy Mode</b></Link> first.
         </div>
         <div className="card-grid">
           <Link className="card" href="/?review=1">
